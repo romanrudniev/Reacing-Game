@@ -18,7 +18,10 @@ namespace ReacingGameDemo1
     public partial class MainWindow : Window
     {
         private DispatcherTimer roadTimer;
-        private double roadSpeed = 5;
+        private double carSpeed = 0;
+        private double maxSpeed = 340;
+        private double acceleration;
+        private double deceleration;
         private bool gameStarted = false;
 
         public MainWindow()
@@ -26,6 +29,9 @@ namespace ReacingGameDemo1
             InitializeComponent();
             this.SizeChanged += OnWindowSizeChanged;
             this.KeyDown += OnKeyDown;
+
+            acceleration = maxSpeed / 0.25 / 50;
+            deceleration = maxSpeed / 3.4 / 50;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -77,18 +83,28 @@ namespace ReacingGameDemo1
             if (!gameStarted) return;
 
             double carLeft = Canvas.GetLeft(car);
-            double carSpeed = road1.Width * 0.05;
+            double carMoveSpeed = carSpeed / maxSpeed * (road1.Width * 0.05);
             double roadLeft = Canvas.GetLeft(road1);
             double roadRight = roadLeft + road1.Width - car.Width;
 
             if ((e.Key == Key.Left || e.Key == Key.A) && carLeft > roadLeft)
             {
-                Canvas.SetLeft(car, carLeft - carSpeed);
+                Canvas.SetLeft(car, carLeft - carMoveSpeed);
             }
             else if ((e.Key == Key.Right || e.Key == Key.D) && carLeft < roadRight)
             {
-                Canvas.SetLeft(car, carLeft + carSpeed);
+                Canvas.SetLeft(car, carLeft + carMoveSpeed);
             }
+            else if (e.Key == Key.Up || e.Key == Key.W)
+            {
+                carSpeed = Math.Min(carSpeed + acceleration, maxSpeed);
+            }
+            else if (e.Key == Key.Down || e.Key == Key.S)
+            {
+                carSpeed = Math.Max(carSpeed - deceleration, 0);
+            }
+
+            speedText.Text = $"Speed: {Math.Round(carSpeed)} km/h";
         }
 
         private void RoadTimer_Tick(object sender, EventArgs e)
@@ -99,11 +115,14 @@ namespace ReacingGameDemo1
 
         private void MoveRoad(Image road)
         {
+            double roadSpeed = carSpeed / maxSpeed * 10;
             double newTop = Canvas.GetTop(road) + roadSpeed;
+
             if (newTop >= MyCanvas.ActualHeight)
             {
                 newTop = -MyCanvas.ActualHeight;
             }
+
             Canvas.SetTop(road, newTop);
         }
 
@@ -112,9 +131,12 @@ namespace ReacingGameDemo1
             if (!gameStarted)
             {
                 gameStarted = true;
-                roadTimer = new DispatcherTimer();
-                roadTimer.Interval = TimeSpan.FromMilliseconds(20);
-                roadTimer.Tick += RoadTimer_Tick;
+                if (roadTimer == null)
+                {
+                    roadTimer = new DispatcherTimer();
+                    roadTimer.Interval = TimeSpan.FromMilliseconds(20);
+                    roadTimer.Tick += RoadTimer_Tick;
+                }
                 roadTimer.Start();
             }
         }
@@ -123,6 +145,8 @@ namespace ReacingGameDemo1
         {
             gameStarted = false;
             roadTimer?.Stop();
+            carSpeed = 0;
+            speedText.Text = "Speed: 0 km/h";
         }
     }
 }

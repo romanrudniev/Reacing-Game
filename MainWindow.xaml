@@ -16,6 +16,7 @@
                    Width="80" Height="130" Canvas.Left="330" Canvas.Top="300"/>
             <Button Content="Start" Width="100" Height="40" Canvas.Left="10" Canvas.Top="10" Click="StartGame"/>
             <Button Content="Stop" Width="100" Height="40" Canvas.Left="10" Canvas.Top="55" Click="StopGame" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <TextBlock x:Name="speedText" Text="Speed: 0 km/h" FontSize="16" Foreground="Black" Canvas.Left="679" Canvas.Top="403"/>
 
         </Canvas>
 
