@@ -154,7 +154,7 @@ namespace ReacingGameDemo1
 
             if (carRect.IntersectsWith(obstacleRect))
             {
-                gameTimer.Stop();
+                gameTimer.Stop();   
                 isGameOver = true;
                 speedText.Text = "ДТП! Гру завершено";
             }
