@@ -8,17 +8,11 @@
         Title="Reacing Game" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
         <Canvas x:Name="MyCanvas" Background="LightGray">
-            <Image x:Name="road1" Source="C:\Users\Inna\Desktop\kkk\UserAction\ReacingGameDemo1\Recources\road1.jpg" 
-                   Canvas.Left="183" Canvas.Top="0" Width="400" Height="600"/>
-            <Image x:Name="road2" Source="C:\Users\Inna\Desktop\kkk\UserAction\ReacingGameDemo1\Recources\road2.jpg" 
-                   Canvas.Left="183" Canvas.Top="-298" Width="400" Height="600" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <Image x:Name="car" Source="C:\Users\Inna\Desktop\kkk\UserAction\ReacingGameDemo1\Recources\car2.png" 
-                   Width="80" Height="130" Canvas.Left="330" Canvas.Top="300"/>
-            <Button Content="Start" Width="100" Height="40" Canvas.Left="10" Canvas.Top="10" Click="StartGame"/>
-            <Button Content="Stop" Width="100" Height="40" Canvas.Left="10" Canvas.Top="55" Click="StopGame" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <TextBlock x:Name="speedText" Text="Speed: 0 km/h" FontSize="16" Foreground="Black" Canvas.Left="679" Canvas.Top="403"/>
-
+            <Image x:Name="road1" Source="C:\Users\Inna\Desktop\kkk\UserAction\ReacingGameDemo1\Recources\road1.jpg"/>
+            <Image x:Name="road2" Source="C:\Users\Inna\Desktop\kkk\UserAction\ReacingGameDemo1\Recources\road2.jpg"/>
+            <Image x:Name="car" Source="C:\Users\Inna\Desktop\kkk\UserAction\ReacingGameDemo1\Recources\car2.png"/>
+            <Image x:Name="obstacle" Source="C:\Users\Inna\Desktop\kkk\UserAction\ReacingGameDemo1\Recources\wall.png" Visibility="Hidden"/>
+            <TextBlock x:Name="speedText" FontSize="20" Foreground="Black" Background="White" Padding="5"/>
         </Canvas>
-
     </Grid>
 </Window>
